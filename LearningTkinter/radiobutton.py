@@ -19,12 +19,17 @@ pizza = StringVar()
 pizza.set("Pepporoni")
 
 for text, mode in Modes: 
-    Radiobutton(root, text = text, variable = pizza , value = mode).pack()
+    Radiobutton(root, text = text, variable = pizza , value = mode).pack(anchor= W)
 
 def clicked(value):
     myLabel = Label(root, text = value)
     myLabel.pack()
 
-myLable  = Label(root, text="Click me!", command = lambda: clicked(pizza.get()))
-myLable.pack()
+# myLable  = Label(root, text=pizza.get())
+# myLable.pack()
+
+myButton  = Button(root, text="Click me!", command = lambda: clicked(pizza.get()))
+myButton.pack()
+
+
 root.mainloop()
