@@ -1,2 +1,2 @@
-
-button_add.grid (row =4 , column=1 )
+(root, text=pizza.get())
+# myLable.pack()
