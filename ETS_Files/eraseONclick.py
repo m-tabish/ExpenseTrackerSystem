@@ -1,4 +1,5 @@
 import tkinter as tk
+# from tkinter import *
 from tkinter import ttk
 # from tkmacosx import Button
 from tkinter import Button
@@ -7,71 +8,59 @@ from PIL import ImageTk, Image
 
 root = tk.Tk()
 root.title("Team DevDuo/DebuggingDuo/Dev-N-Debug")
-root.geometry("1000x740")
+root.geometry("1500x840")
 root.configure(bg="black")
-# root.resizable(False, False)
+root.resizable(False, False)
 
 #creating global variables for keeping the code modular
 global prim_font
 global prim_color
 global sec_color
-global label_x
-global btn_x 
-global clickBtn_x
 prim_font = "Poppins"
 prim_color = "black"
 sec_color = "#FFD700"
 caret_down_gold = ImageTk.PhotoImage(Image.open('ETS_files/caret_down_gold.png'))
-label_x = 100
-btn_x = 350
-clickBtn_x = 740
 
 # TITLE OF THE PAGE
-title = tk.Label(root, text = "Currency Convertor",font=(prim_font , 24, "bold"),fg=sec_color,bg=prim_color, pady=5 ).place(x = 330 , y = 30)
+title = tk.Label(root, text = "Currency Convertor",font=(prim_font , 24, "bold"),fg=sec_color,bg=prim_color, pady=5 ).place(x = 630 , y = 30)
 
 
-conv_amt = tk.IntVar()
-conv_amt.set(0.0)
-
-
-
-#Functions
-def update_label():
-    input_text = original_amt.get()
-    conv_amt.set(input_text)
 
 
 #all box labels
-amt_label = tk.Label(root, text = "Amount: ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x=label_x , y= 150)
-from_label = tk.Label(root, text = "From : ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x=label_x , y= 250)
-to_label = tk.Label(root, text = "To : ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x=label_x, y= 350)
-convertedAmt_label = tk.Label(root, text = "Converted  ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x= label_x, y= 550)
-convertedAmt_label = tk.Label(root, text = "Amount: ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x= label_x+10, y= 590)
+amt_label = tk.Label(root, text = "Amount: ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x= 300,y= 150)
+from_label = tk.Label(root, text = "From : ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x= 300,y= 250)
+to_label = tk.Label(root, text = "To : ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x= 300,y= 350)
+convertedAmt_head = tk.Label(root, text = "Converted Amount : ", font=(prim_font,18,"bold"),bg=prim_color, fg=sec_color).place(x= 300,y= 550)
 
 
-newAmt = tk.Label(
+#functions
+
+def clear_input():
+    amt_input.delete("1.0","end")
+    
+#input boxes
+amt_input = tk.Entry(
     root,
-    textvariable=conv_amt,
+    font=(prim_font,18),
+    fg=sec_color,
+    bg=prim_color,
+    borderwidth=0.5,
+    insertbackground= sec_color
+    ).place(x= 600,y = 150)
+
+
+convertedAmt = tk.Label(
+    root,
+    text = "",
     font=(prim_font,18),
     fg=sec_color,
     bg=prim_color,
     borderwidth=0.5,
     # insertbackground= sec_color
-    ).place(x= btn_x ,y = 550)
-
-
-
-#input boxes
-original_amt = tk.Entry(
-root,
-font=(prim_font,18),
-fg=sec_color,
-bg=prim_color,
-borderwidth=0.5,
-insertbackground= sec_color
 )
-original_amt.place(x= btn_x,y = 150)
 
+# original_amt = amt_input.get()
 
 #currency list 
 currency_list = [
@@ -91,7 +80,11 @@ from_btn_default = tk.StringVar()
 from_btn_default.set( "Select")
 from_btn = tk.OptionMenu(root, from_btn_default, *currency_list)
 
-
+def resize_btn():
+    global width_btn
+    width_btn = tk.IntVar()
+    width_btn.set(len(from_btn.get()))
+     
 from_btn.config(
     fg = sec_color,
     bg = prim_color,     
@@ -113,7 +106,7 @@ from_btn["menu"].config(
     activeborder= 0,
     border=0
 )
-from_btn.place(x = btn_x, y= 260)
+from_btn.place(x = 630, y= 260)
 
 
 
@@ -143,10 +136,10 @@ to_btn["menu"].config(
     activeborder= 0,
     border=0
 )
-to_btn.place(x = btn_x, y= 360)
+to_btn.place(x = 630, y= 360)
 
 
-# Convert and Clear All buttons
+#Other call to action buttons (CTA)
 
 convert_btn = tk.Button(
     root, 
@@ -159,12 +152,12 @@ convert_btn = tk.Button(
     height=1,
     activebackground=sec_color,
     activeforeground=prim_color
-    )
-convert_btn.place(x = clickBtn_x, y= 150)
+    ).place(x = 1000, y= 150)
 
 clear_btn = Button(
     root, 
     text= "Clear All", 
+    command = clear_input,
     font =(prim_font,18), 
     fg =sec_color, 
     bg= prim_color, 
@@ -172,7 +165,7 @@ clear_btn = Button(
     height=1, 
     activebackground=sec_color, 
     activeforeground=prim_color,
-    ).place(x = clickBtn_x, y= 250)
+    ).place(x = 1000, y= 250)
 
 
 
