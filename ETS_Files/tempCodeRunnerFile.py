@@ -1,2 +1,1 @@
-
-# from_btn_defualt = "Select"
+    label.config(text=f'You entered: {input_text}')  # Update the Label text
