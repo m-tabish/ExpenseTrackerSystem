@@ -4,7 +4,7 @@ from tkinter import ttk
 from tkinter import Button
 from PIL import ImageTk, Image
 from tkinter import messagebox
-from forex_python.converter import CurrencyRates
+import requests
 
 root = tk.Tk()
 root.title("Team DevDuo/DebuggingDuo/Dev-N-Debug")
@@ -47,6 +47,10 @@ def update_label():
     
 def clear_input():
     original_amt.delete(0,tk.END)
+    
+def first_curr():
+    first_curr = from_btn.get() 
+    from_btn_default.set(first_curr)
 
 
 #all box labels
@@ -66,7 +70,6 @@ newAmt = tk.Label(
     borderwidth=0.5,
     # insertbackground= sec_color
     ).place(x= btn_x ,y = 550)
-
 
 
 #input boxes
@@ -95,9 +98,11 @@ currency_list = [
 
 
 #Drop down button 1
+
 from_btn_default = tk.StringVar()
 from_btn_default.set( "Select")
-from_btn = tk.OptionMenu(root, from_btn_default, *currency_list)
+from_btn = tk.OptionMenu(root, from_btn_default,command= first_curr ,  *currency_list)
+from_currency = from_currency.upper()
 
 
 from_btn.config(
@@ -127,9 +132,14 @@ from_btn.place(x = btn_x, y= 260)
 
 #Drop down button 2
 
+
 to_btn_default = tk.StringVar()
 to_btn_default.set( "Select")
 to_btn = tk.OptionMenu(root, to_btn_default, *currency_list)
+
+to_currency = to_btn.get()
+to_currency = to_currency.upper()
+
 to_btn.config(
     fg = sec_color,
     bg = prim_color,     
@@ -153,6 +163,12 @@ to_btn["menu"].config(
 )
 to_btn.place(x = btn_x, y= 360)
 
+# Retrieving the converted rate from api
+response = requests.get(
+    f"https://api.frankfurter.app/latest?amount={original_amt}&from{from_currency}&to{to_currency}"
+)
+
+conv_amt.set(response)
 
 # Convert and Clear All buttons
 
