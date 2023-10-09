@@ -1,1 +1,1 @@
-    label.config(text=f'You entered: {input_text}')  # Update the Label text
+1
