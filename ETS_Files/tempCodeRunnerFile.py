@@ -1,4 +1,3 @@
-(s)
-data = cur.fetchall()
-for i in data:
-    print (
+
+# from_currency = 'USD'
+# to_currency = 'INR'
