@@ -4,13 +4,15 @@ from tkinter import ttk
 from tkinter import Button
 from PIL import ImageTk, Image
 from tkinter import messagebox
-from forex_python.converter import CurrencyRates
+# from forex_python.converter import CurrencyRates
 
 root = tk.Tk()
-root.title("Team DevDuo/DebuggingDuo/Dev-N-Debug")
+root.title("Prism Expense Tracking System")
 root.geometry("1000x740")
 root.configure(bg="black")
-# root.resizable(False, False)
+
+root.iconphoto(False ,tk.PhotoImage(file= "calculator.png"))
+root.resizable(False, False)
 
 #creating global variables for keeping the code modular
 global prim_font
