@@ -9,7 +9,7 @@ win.config(height=650,width=390)
 win.resizable(False,False)
 win.configure(bg="black")
 win.title("Calculator")
-# win.iconphoto(False ,tk.PhotoImage(file= "D:\ExpenseTrackerSystem\ETS_Files\calculator.png"))
+win.iconphoto(False ,tk.PhotoImage(file= "D:\ExpenseTrackerSystem\ETS_Files\calculator.png"))
 #global variables
 
 global prim_font
@@ -44,10 +44,11 @@ def cal():
         except:
             messagebox.showwarning('Invalid','Invalid Operators and number use -_-')
             result='error'
-            
+                
             expression = result
     l2.config(text=expression)
     
+
     
 l2=tk.Label(win,text='',font=('Helvetica', 30,'bold',),pady="-5", padx="5")
 l2.place(x=0,y=100)
@@ -55,7 +56,7 @@ l2.config(bg = prim_color, fg="white")
 Button(win,text='C',width=7,height=3,font=(20),bg=sec_color,bd=4,fg=prim_color,command=clear, activebackground="black", activeforeground="white").place(x=0,y=150)
 Button(win,text='/',width=7,height=3,font=(20),bg='#282C35',bd=4,fg='white',command=lambda:show('/'), activebackground="black", activeforeground="white").place(x=100,y=150)
 Button(win,text='%',width=7,height=3,font=(20),bg='#282C35',bd=4,fg='white',command=lambda:show('%'), activebackground="black", activeforeground="white").place(x=200,y=150)
-Button(win,text='',width=7,height=3,font=(20),bg='#282C35',bd=1,fg='white',command=lambda:show(''), activebackground="black", activeforeground="white").place(x=300,y=150)
+Button(win,text='^',width=7,height=3,font=(20),bg='#282C35',bd=1,fg='white',command=lambda:show('**'), activebackground="black", activeforeground="white").place(x=300,y=150)
 
 Button(win,text='7',width=7,height=3,font=(20),bg='#282C35',bd=4,fg='white',command=lambda:show('7'), activebackground="black", activeforeground="white").place(x=0,y=250)
 Button(win,text='8',width=7,height=3,font=(20),bg='#282C35',bd=4,fg='white',command=lambda:show('8'), activebackground="black", activeforeground="white").place(x=100,y=250)
