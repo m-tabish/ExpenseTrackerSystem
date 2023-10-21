@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "install": "^0.13.0",
+    "postcss": "^8.4.31"
+  }
+}
