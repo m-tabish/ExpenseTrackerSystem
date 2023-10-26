@@ -7,9 +7,9 @@ import tkinter.font as tkfont
 # Create a Tkinter root window
 root = tk.Tk()
 root.title("Expense Tracker")
-root.geometry("1000x840")
+root.geometry("900x700")
 root.config(bg="black")
-root.resizable(False, False)
+# root.resizable(False, False)
 
 #defining default font style 
 prim_font = tkfont.nametofont("TkDefaultFont")
@@ -83,46 +83,46 @@ line_frame.place(y=320,x=0)
 date_label = tk.Label(root, text="Date",font=("Airal",18),fg="white",bg=prim_color)
 date_label.place(y=340,x=10)
 
-date_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5)
+date_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
 date_entry.config(width=14)
-date_entry.place(y=340,x=100)
+date_entry.place(y=340,x=150)
 
 spent_label = tk.Label(root, text="Spent On ",font=("Airal",18),fg="white",bg=prim_color)
 spent_label.place(y=390,x=10)
 
-spent_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5)
+spent_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
 spent_entry.config(width=14)
-spent_entry.place(y=390,x=100)
+spent_entry.place(y=390,x=150)
 
 
 amount_label = tk.Label(root, text="Amount ",font=("Airal",18),fg="white",bg=prim_color)
 amount_label.place(y=440,x=10)
 
-amount_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5)
+amount_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
 amount_entry.config(width=14)
-amount_entry.place(y=440,x=100)
+amount_entry.place(y=440,x=150)
 
 
 # Buttons
-clean = Button(root, text="Clear", bg=prim_color, fg="green",font=("Airal",18))
-clean.place(y=360,x=380)
+clean = Button(root, text=" Clear", bg=prim_color, fg="green",font=("Airal",18))
+clean.place(y=360,x=430)
 
-add = Button(root, text="Add", bg=prim_color, fg="green",font=("Airal",18))
+add = Button(root, text="  Add ", bg=prim_color, fg="green",font=("Airal",18))
 
-add.place(y=410,x=280)
+add.place(y=410,x=430)
 
-total_amount = Button(root, text="Total Amount", bg=prim_color, fg="green",font=("Airal",18))
-total_amount.place(y=360,x=410)
+total_amount = Button(root, text=" Total Amount ", bg=prim_color, fg="green",font=("Airal",18))
+total_amount.place(y=360,x=520)
 
 update = Button(root, text="      Update     ", bg=prim_color, fg="green",font=("Airal",18))
-update.place(y=410,x=410)
+update.place(y=410,x=520)
 
 
-delete = Button(root, text="Delete", bg=prim_color, fg="green",font=("Airal",18))
-delete.place(y=360,x=590)
+delete = Button(root, text="  Delete  ", bg=prim_color, fg="green",font=("Airal",18))
+delete.place(y=360,x=700)
 
-exit = Button(root, text="Exit", bg=prim_color, fg="green",font=("Airal",18))
-exit.place(y=410,x=590)
+exit = Button(root, text="    Exit    ", bg=prim_color, fg="green",font=("Airal",18))
+exit.place(y=410,x=700)
 
 # Start the Tkinter main loop
 root.mainloop()

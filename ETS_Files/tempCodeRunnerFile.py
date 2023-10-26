@@ -1,2 +1,1 @@
-
-# attendence.close()
+ata=[]
