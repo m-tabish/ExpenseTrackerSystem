@@ -40,8 +40,6 @@ currency_rate = {
 
 # creating tabs
 notebook = ttk.Notebook(root)  # widget that manages collection of windows
-
-# creating tabs
 Office = tk.Frame(notebook)
 Scanner = tk.Frame(notebook)
 Office.configure(bg="black")
@@ -156,6 +154,7 @@ def open_cal():
         '0'), activebackground="black", activeforeground="white").place(x=1, y=550)
     Button(Calculator, text='.', width=7, height=3, font=(20), bg='#282C35', fg='white', command=lambda: show(
         '.'), activebackground="black", activeforeground="white").place(x=200, y=550)
+    
     
 # all box labels
 amt_label = tk.Label(Office, text="Amount: ", font=(
