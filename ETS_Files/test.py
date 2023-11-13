@@ -9,7 +9,10 @@ root = tk.Tk()
 root.title("Expense Tracker")
 root.geometry("900x700")
 root.config(bg="black")
-# root.resizable(False, False)
+img = tk.PhotoImage(
+    False, file="D:\ExpenseTrackerSystem\ETS_Files\PrismOfficeLogo.png")
+root.iconphoto(False, img)
+root.resizable(False, False)
 
 #defining default font style 
 prim_font = tkfont.nametofont("TkDefaultFont")
@@ -42,14 +45,16 @@ table.column("#0", width=0, stretch=tk.NO)
 
 style = ttk.Style()
 style.configure("Treeview",
-                background=prim_color, 
+                background="black", 
                 fieldbackground=prim_color, 
                 foreground="white"
                 
                 )
 
 #functions 
-
+global date_input
+global spent_input 
+global amount_input
 data = []
 def add():
     date_input = date_entry.get()
@@ -62,7 +67,15 @@ def add():
         table.insert("", "end", values=item)
         data.clear()
     
-
+def clear():
+    date_input = date_entry.delete(0,"end")
+    spent_input = spent_entry.delete(0,"end")
+    amount_input = amount_entry.delete(0,'end')
+    
+def delete_record():
+    selected_item = table.selection()
+    if selected_item:
+        table.delete(selected_item)
 
 # Add some dummy data to the Treeview
 
@@ -106,7 +119,7 @@ amount_entry.place(y=440,x=150)
 
 
 # Buttons
-clean = Button(root, text=" Clear", bg=prim_color, fg="green",font=("Airal",18))
+clean = Button(root, text=" Clear", command = clear,bg=prim_color, fg="green",font=("Airal",18))
 clean.place(y=360,x=430)
 
 add = Button(root, text="  Add ",command= add, bg=prim_color, fg="green",font=("Airal",18))
@@ -120,7 +133,7 @@ update = Button(root, text="      Update     ", bg=prim_color, fg="green",font=(
 update.place(y=410,x=520)
 
 
-delete = Button(root, text="  Delete  ", bg=prim_color, fg="green",font=("Airal",18))
+delete = Button(root, text="  Delete  ",command = delete_record,  bg=prim_color, fg="green",font=("Airal",18))
 delete.place(y=360,x=700)
 
 exit = Button(root, text="    Exit    ",command = exit, bg=prim_color, fg="green",font=("Airal",18))

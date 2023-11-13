@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 # from tkmacosx import Button
 from tkinter import Button
+from tkinter import messagebox
 import tkinter.font as tkfont
 
 # Create a Tkinter root window
@@ -9,7 +10,10 @@ root = tk.Tk()
 root.title("Expense Tracker")
 root.geometry("900x700")
 root.config(bg="black")
-# root.resizable(False, False)
+img = tk.PhotoImage(
+    False, file="D:\ExpenseTrackerSystem\ETS_Files\PrismOfficeLogo.png")
+root.iconphoto(False, img)
+root.resizable(False, False)
 
 #defining default font style 
 prim_font = tkfont.nametofont("TkDefaultFont")
@@ -42,28 +46,42 @@ table.column("#0", width=0, stretch=tk.NO)
 
 style = ttk.Style()
 style.configure("Treeview",
-                background=prim_color, 
+                background="black", 
                 fieldbackground=prim_color, 
                 foreground="white"
-                
                 )
 
+#functions 
+global date_input
+global spent_input 
+global amount_input
+data = []
+def add():
+    date_input = date_entry.get()
+    spent_input = spent_entry.get()
+    amount_input = amount_entry.get()
+    if(date_input =="" or spent_input =="" or amount_input  =="" ):
+        messagebox.showerror(
+            "Python error", "Error: Please enter all the values")
+    else:
+        data.append([date_input,spent_input,amount_input])
+        
+    for item in data:
+        table.insert("", "end", values=item)
+        data.clear()
+    
+def clear():
+    date_input = date_entry.delete(0,"end")
+    spent_input = spent_entry.delete(0,"end")
+    amount_input = amount_entry.delete(0,'end')
+    
+def delete_record():
+    selected_item = table.selection()
+    if selected_item:
+        table.delete(selected_item)
 
 # Add some dummy data to the Treeview
-data = [
-    
-    ("2023-10-02", "Utilities", "$100.00", "$400.00"),
-    ("2023-10-03", "Dining Out", "$30.00", "$370.00"),
-    ("2023-10-04", "Entertainment", "$20.00", "$350.00"),
-    ("2023-10-04", "Entertainment", "$20.00", "$350.00"),
-    ("2023-10-04", "Entertainment", "$20.00", "$350.00"),
-    ("2023-10-04", "Entertainment", "$20.00", "$350.00"),
-    ("2023-10-01", "Groceries", "$50.00", "$500.00"),
-    ("2023-10-02", "Utilities", "$100.00", "$400.00"),
-    ("2023-10-03", "Dining Out", "$30.00", "$370.00"),
-    ("2023-10-04", "Entertainment", "$20.00", "$350.00"),
-    ("2023-10-04", "Entertainment", "$20.00", "$350.00"),
-]
+
 
 for item in data:
     table.insert("", "end", values=item)
@@ -73,56 +91,48 @@ row_height = 40
 
 # Create a custom style to adjust row height
 style = ttk.Style()
-style.configure("Treeview", rowheight=row_height)
+style.configure("Treeview", rowheight=row_height,bg="black")
 table.pack()
 
 line_frame = tk.Frame(root, width=720, height=2, bg="#00ff00")
 line_frame.place(y=320,x=0)
 
 # Create a label and Input Fields
-date_label = tk.Label(root, text="Date",font=("Airal",18),fg="white",bg=prim_color)
-date_label.place(y=340,x=10)
+date_label = tk.Label(root, text="Date:",font=("Airal",18),fg="white",bg=prim_color)
+date_label.place(y=340,x=60)
 
 date_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
 date_entry.config(width=14)
-date_entry.place(y=340,x=150)
+date_entry.place(y=340,x=200)
 
-spent_label = tk.Label(root, text="Spent On ",font=("Airal",18),fg="white",bg=prim_color)
-spent_label.place(y=390,x=10)
+spent_label = tk.Label(root, text="Spent On: ",font=("Airal",18),fg="white",bg=prim_color)
+spent_label.place(y=390,x=60)
 
 spent_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
 spent_entry.config(width=14)
-spent_entry.place(y=390,x=150)
+spent_entry.place(y=390,x=200)
 
 
-amount_label = tk.Label(root, text="Amount ",font=("Airal",18),fg="white",bg=prim_color)
-amount_label.place(y=440,x=10)
+amount_label = tk.Label(root, text="Amount: ",font=("Airal",18),fg="white",bg=prim_color)
+amount_label.place(y=440,x=60)
 
 amount_entry = tk.Entry(root,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
 amount_entry.config(width=14)
-amount_entry.place(y=440,x=150)
+amount_entry.place(y=440,x=200)
 
 
 # Buttons
-clean = Button(root, text=" Clear", bg=prim_color, fg="green",font=("Airal",18))
-clean.place(y=360,x=430)
+clean = Button(root, text="     Clear   ", command = clear,bg=prim_color, fg="green",font=("Airal",18))
+clean.place(y=410,x=500)
+ 
+add = Button(root, text="      Add    ",command= add, bg=prim_color, fg="green",font=("Airal",18))
+add.place(y=360,x=500)
 
-add = Button(root, text="  Add ", bg=prim_color, fg="green",font=("Airal",18))
+delete = Button(root, text="  Delete  ",command = delete_record,  bg=prim_color, fg="green",font=("Airal",18))
+delete.place(y=360,x=650)
 
-add.place(y=410,x=430)
-
-total_amount = Button(root, text=" Total Amount ", bg=prim_color, fg="green",font=("Airal",18))
-total_amount.place(y=360,x=520)
-
-update = Button(root, text="      Update     ", bg=prim_color, fg="green",font=("Airal",18))
-update.place(y=410,x=520)
-
-
-delete = Button(root, text="  Delete  ", bg=prim_color, fg="green",font=("Airal",18))
-delete.place(y=360,x=700)
-
-exit = Button(root, text="    Exit    ", bg=prim_color, fg="green",font=("Airal",18))
-exit.place(y=410,x=700)
+exit = Button(root, text="    Exit    ",command = exit, bg=prim_color, fg="green",font=("Airal",18))
+exit.place(y=410,x=650)
 
 # Start the Tkinter main loop
 root.mainloop()

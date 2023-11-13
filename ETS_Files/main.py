@@ -3,7 +3,8 @@ from tkinter import ttk
 from tkinter import Button
 from PIL import ImageTk, Image
 from tkinter import messagebox
-from forex_python.converter import CurrencyRates
+
+
 
 root = tk.Tk()
 root.title("Prism Office")
@@ -41,10 +42,12 @@ currency_rate = {
 # creating tabs
 notebook = ttk.Notebook(root)  # widget that manages collection of windows
 Office = tk.Frame(notebook)
-Scanner = tk.Frame(notebook)
+Accounts_Log = tk.Frame(notebook)
 Office.configure(bg="black")
+Accounts_Log.configure(bg="black")
+
+notebook.add(Accounts_Log, text="Accounts_Log")
 notebook.add(Office, text="OFFICE")
-notebook.add(Scanner, text="Scanner")
 notebook.pack(expand=True, fill="both")
 
 # TITLE OF THE PAGE
@@ -81,11 +84,14 @@ def open_cal():
     Calculator = tk.Toplevel()
     Calculator.geometry("390x650")
     Calculator.config(bg="black")
-    # CALCULTOR'S CODE in this function
+    
+    
+                                                                                                     # CALCULTOR'S CODE in this function
     
     # calc = tk.Toplevel()
     expression = ''
     
+    Calculator.title("Calculator")
     
     def show(val):
         global expression
@@ -155,7 +161,135 @@ def open_cal():
     Button(Calculator, text='.', width=7, height=3, font=(20), bg='#282C35', fg='white', command=lambda: show(
         '.'), activebackground="black", activeforeground="white").place(x=200, y=550)
     
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                #CALCULATOR ENDS
+                                                                                                
+                                                                                                #EXPENSELOG STARTS
+
+
+
+# Create a Treeview widget for the table
+table = ttk.Treeview(Accounts_Log, columns=("Date", "Spent On", "Amount", "Balance"),height=7)
+table.heading("#1", text="Date")  
+table.heading("#2", text="Spent On")
+table.heading("#3", text="Amount")
+table.heading("#4", text="Balance")
+
+
+# Calculate the width of each column to make them evenly spaced
+total_columns = 4  
+table_width = 720  
+column_width = table_width // total_columns  
+for i in range(total_columns):
+    table.column(i, width=column_width, anchor="center")
+
+# Hide the first column
+table.column("#0", width=0, stretch=tk.NO)
+
+style = ttk.Style()
+style.configure("Treeview",
+                background="black", 
+                fieldbackground=prim_color, 
+                foreground="white"
+                
+                )
+
+#functions 
+global date_input
+global spent_input 
+global amount_input
+data = []
+def add():
+    date_input = date_entry.get()
+    spent_input = spent_entry.get()
+    amount_input = amount_entry.get()
+    if(date_input =="" or spent_input =="" or amount_input  == ""):
+        messagebox.showerror(
+            "Python error", "Error: Please enter all the values")
+    else:
+        data.append([date_input,spent_input,amount_input])
+        
+    for item in data:
+        table.insert("", "end", values=item)
+        data.clear()
     
+def clear():
+    date_input = date_entry.delete(0,"end")
+    spent_input = spent_entry.delete(0,"end")
+    amount_input = amount_entry.delete(0,'end')
+    
+def delete_record():
+    selected_item = table.selection()
+    if selected_item:
+        table.delete(selected_item)
+
+# Add some dummy data to the Treeview
+
+
+for item in data:
+    table.insert("", "end", values=item)
+    
+# Calculate the row height (in pixels)
+row_height = 40
+
+# Create a custom style to adjust row height
+style = ttk.Style()
+style.configure("Treeview", rowheight=row_height,bg="black")
+table.pack()
+
+line_frame = tk.Frame(Accounts_Log, width=720, height=2, bg="#00ff00")
+line_frame.place(y=320,x=0)
+
+# Create a label and Input Fields
+date_label = tk.Label(Accounts_Log, text="Date:",font=("Airal",18),fg="white",bg=prim_color)
+date_label.place(y=340,x=60)
+
+date_entry = tk.Entry(Accounts_Log,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
+date_entry.config(width=14)
+date_entry.place(y=340,x=200)
+
+spent_label = tk.Label(Accounts_Log, text="Spent On: ",font=("Airal",18),fg="white",bg=prim_color)
+spent_label.place(y=390,x=60)
+
+spent_entry = tk.Entry(Accounts_Log,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
+spent_entry.config(width=14)
+spent_entry.place(y=390,x=200)
+
+
+amount_label = tk.Label(Accounts_Log, text="Amount: ",font=("Airal",18),fg="white",bg=prim_color)
+amount_label.place(y=440,x=60)
+
+amount_entry = tk.Entry(Accounts_Log,font=("Airal",18),fg="white",bg=prim_color,borderwidth=0.5, insertbackground="#00ff00")
+amount_entry.config(width=14)
+amount_entry.place(y=440,x=200)
+
+
+# Buttons
+clean = Button(Accounts_Log, text="     Clear   ", command = clear,bg=prim_color, fg="green",font=("Airal",18))
+clean.place(y=410,x=500)
+ 
+add = Button(Accounts_Log, text="      Add    ",command= add, bg=prim_color, fg="green",font=("Airal",18))
+add.place(y=360,x=500)
+
+delete = Button(Accounts_Log, text="  Delete  ",command = delete_record,  bg=prim_color, fg="green",font=("Airal",18))
+delete.place(y=360,x=650)
+
+exit = Button(Accounts_Log, text="    Exit    ",command = exit, bg=prim_color, fg="green",font=("Airal",18))
+exit.place(y=410,x=650)
+
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                            
+                                                                                            #EXPENSE LOG ENDS
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                
 # all box labels
 amt_label = tk.Label(Office, text="Amount: ", font=(
     prim_font, 18, "bold"), bg=prim_color, fg=sec_color).place(x=label_x, y=150)
