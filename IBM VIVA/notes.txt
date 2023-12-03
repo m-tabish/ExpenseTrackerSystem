@@ -1,0 +1,5 @@
+no more expense -> no expense
+created variables row1y, row1x ... for easier placement
+added calculator button and code
+
+signIn page=  username? should be email
